@@ -58,6 +58,8 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
         processing_label.setVisible(state is Processing)
         image_preview.setVisible(state.imageUri.isNotBlank())
         image_preview.loadUri(state.imageUri)
+        caption.setVisible(state is CaptionedImage)
+        if (state is CaptionedImage) caption.text = state.caption
     }
 
     override fun handle(action: CaptionAction) = when(action) {

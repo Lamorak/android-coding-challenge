@@ -15,4 +15,9 @@
         <item name="android:background">?android:selectableItemBackground</item>
     </style>
 
+    <style name="Label">
+        <item name="android:textColor">@color/label_text</item>
+        <item name="android:background">@color/label_background</item>
+    </style>
+
 </resources>

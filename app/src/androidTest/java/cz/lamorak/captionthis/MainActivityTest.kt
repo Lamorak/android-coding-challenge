@@ -59,6 +59,7 @@ class MainActivityTest {
         onView(withId(R.id.select_image)).check(matches(isDisplayed()))
         onView(withId(R.id.image_preview)).check(matches(not(isDisplayed())))
         onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
     }
 
     @Test
@@ -70,5 +71,19 @@ class MainActivityTest {
         onView(withId(R.id.select_image)).check(matches(not(isDisplayed())))
         onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
         onView(withId(R.id.processing_label)).check(matches(isDisplayed()))
+        onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun captioned() {
+        val caption = "caption"
+        intentsTestRule.activity.let {
+            it.runOnUiThread { it.display(CaptionedImage("imageUri", caption)) }
+        }
+
+        onView(withId(R.id.select_image)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
+        onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.caption)).check(matches(allOf(isDisplayed(), withText(caption))))
     }
 }
