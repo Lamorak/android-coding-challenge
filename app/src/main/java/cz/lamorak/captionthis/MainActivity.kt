@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import cz.lamorak.architecture.ViewActivity
 import cz.lamorak.architecture.ViewModel
 import cz.lamorak.architecture.ViewModelFactory
+import cz.lamorak.captionthis.extensions.loadUri
 import cz.lamorak.captionthis.extensions.setVisible
 import cz.lamorak.captionthis.viewmodel.CaptionAction
 import cz.lamorak.captionthis.viewmodel.CaptionAction.*
@@ -21,6 +22,7 @@ import cz.lamorak.captionthis.viewmodel.CaptionState.*
 import cz.lamorak.captionthis.viewmodel.CaptionViewModel
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_select_image.*
 import java.io.File
 import javax.inject.Inject
@@ -53,6 +55,9 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
 
     override fun display(state: CaptionState) {
         select_image.setVisible(state === SelectImage)
+        processing_label.setVisible(state is Processing)
+        image_preview.setVisible(state.imageUri.isNotBlank())
+        image_preview.loadUri(state.imageUri)
     }
 
     override fun handle(action: CaptionAction) = when(action) {

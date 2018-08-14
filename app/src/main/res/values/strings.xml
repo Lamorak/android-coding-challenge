@@ -4,4 +4,6 @@
     <string name="select_image_title">Select image</string>
     <string name="select_image_gallery">Gallery</string>
     <string name="select_image_camera">Camera</string>
+
+    <string name="processing_label">&#x1f914; Thinking…</string>
 </resources>

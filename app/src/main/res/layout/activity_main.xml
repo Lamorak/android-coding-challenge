@@ -9,4 +9,25 @@
 
     <include layout="@layout/view_select_image" />
 
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:background="#333"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/processing_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="72dp"
+        android:padding="6dp"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:text="@string/processing_label"
+        android:textColor="#ccc"
+        android:background="#99333333"/>
+
 </FrameLayout>

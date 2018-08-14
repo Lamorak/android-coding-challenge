@@ -52,8 +52,23 @@ class MainActivityTest {
 
     @Test
     fun selectImage() {
-        intentsTestRule.activity.display(SelectImage)
+        intentsTestRule.activity.let {
+            it.runOnUiThread { it.display(SelectImage) }
+        }
 
         onView(withId(R.id.select_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.image_preview)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun processing() {
+        intentsTestRule.activity.let {
+            it.runOnUiThread { it.display(Processing("imageUri")) }
+        }
+
+        onView(withId(R.id.select_image)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
+        onView(withId(R.id.processing_label)).check(matches(isDisplayed()))
     }
 }
