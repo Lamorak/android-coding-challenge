@@ -6,4 +6,6 @@
     <string name="select_image_camera">Camera</string>
 
     <string name="processing_label">&#x1f914; Thinking…</string>
+
+    <string name="error_retry">retry</string>
 </resources>

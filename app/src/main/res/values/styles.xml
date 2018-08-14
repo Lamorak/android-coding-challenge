@@ -16,8 +16,18 @@
     </style>
 
     <style name="Label">
+        <item name="android:padding">6dp</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/label_text</item>
         <item name="android:background">@color/label_background</item>
+    </style>
+
+    <style name="Label.Long">
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:maxLines">5</item>
     </style>
 
 </resources>

@@ -60,6 +60,8 @@ class MainActivityTest {
         onView(withId(R.id.image_preview)).check(matches(not(isDisplayed())))
         onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
     }
 
     @Test
@@ -72,6 +74,8 @@ class MainActivityTest {
         onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
         onView(withId(R.id.processing_label)).check(matches(isDisplayed()))
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
     }
 
     @Test
@@ -85,5 +89,22 @@ class MainActivityTest {
         onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
         onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
         onView(withId(R.id.caption)).check(matches(allOf(isDisplayed(), withText(caption))))
+        onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
+    }
+
+    @Test
+    fun captionError() {
+        val error = "error"
+        intentsTestRule.activity.let {
+            it.runOnUiThread { it.display(CaptionError("imageUri", error)) }
+        }
+
+        onView(withId(R.id.select_image)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.image_preview)).check(matches(isDisplayed()))
+        onView(withId(R.id.processing_label)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.error_label)).check(matches(allOf(isDisplayed(), withText(error))))
+        onView(withId(R.id.error_retry)).check(matches(isDisplayed()))
     }
 }

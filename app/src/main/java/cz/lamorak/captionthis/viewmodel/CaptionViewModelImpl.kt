@@ -15,6 +15,7 @@ class CaptionViewModelImpl(initialState: CaptionState,
         is Caption -> Processing(intent.imageUri)
         is ImageCaptioned -> CaptionedImage(state.imageUri, intent.caption)
         is ErrorCaptioned -> CaptionError(state.imageUri, intent.error)
+        Retry -> Processing(state.imageUri)
         NewImage -> SelectImage
         else -> state
     }
@@ -26,12 +27,17 @@ class CaptionViewModelImpl(initialState: CaptionState,
     }
 
     override fun resolveModel(intent: CaptionIntent, state: CaptionState) = when (intent) {
-        is Caption -> captionInteractor.caption(intent.imageUri)
+        is Caption -> captionObservable(intent.imageUri)
+        Retry -> captionObservable(state.imageUri)
+        else -> Observable.empty<CaptionIntent>()
+    }
+
+    private fun captionObservable(imageUri: String): Observable<CaptionIntent> {
+        return captionInteractor.caption(imageUri)
                 .either(
                         { ImageCaptioned(it) },
                         { ErrorCaptioned(it.message ?: "") } //TODO: Implement error recognition
                 )
                 .toObservable()
-        else -> Observable.empty<CaptionIntent>()
     }
 }

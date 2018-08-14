@@ -50,16 +50,20 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
 
     override fun subscribeIntents() = CompositeDisposable(
             select_image_gallery.clicks().asIntent { GallerySelect },
-            select_image_camera.clicks().asIntent { CameraSelect }
+            select_image_camera.clicks().asIntent { CameraSelect },
+            error_retry.clicks().asIntent { Retry }
     )
 
     override fun display(state: CaptionState) {
         select_image.setVisible(state === SelectImage)
         processing_label.setVisible(state is Processing)
         image_preview.setVisible(state.imageUri.isNotBlank())
-        image_preview.loadUri(state.imageUri)
+        image_preview.loadUri(state.imageUri) // TODO: Alllow image loading in espresso tests
         caption.setVisible(state is CaptionedImage)
         if (state is CaptionedImage) caption.text = state.caption
+        error_label.setVisible(state is CaptionError)
+        error_retry.setVisible(state is CaptionError)
+        if (state is CaptionError) error_label.text = state.error
     }
 
     override fun handle(action: CaptionAction) = when(action) {

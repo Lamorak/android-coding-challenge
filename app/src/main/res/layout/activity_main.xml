@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,22 +22,37 @@
         style="@style/Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="72dp"
-        android:padding="6dp"
         android:gravity="center"
-        android:textSize="26sp"
         android:text="@string/processing_label" />
 
     <TextView
         android:id="@+id/caption"
-        style="@style/Label"
-        android:layout_width="wrap_content"
+        style="@style/Label.Long"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:padding="16dp"
-        android:maxLines="5"
-        android:textSize="22sp"
+        android:layout_alignParentBottom="true"
         tools:text="@tools:sample/lorem/random"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/error_label"
+        style="@style/Label.Long"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/error_retry"
+        tools:text="@tools:sample/lorem/random"/>
+
+    <Button
+        android:id="@+id/error_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/error_label"
+        android:layout_alignBottom="@id/error_label"
+        android:background="@color/label_background"
+        android:textColor="@color/label_text"
+        android:text="@string/error_retry"/>
+
+</RelativeLayout>

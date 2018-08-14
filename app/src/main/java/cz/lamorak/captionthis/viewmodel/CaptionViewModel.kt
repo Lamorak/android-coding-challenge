@@ -11,6 +11,7 @@ sealed class CaptionIntent : ViewIntent() {
     data class Caption(val imageUri: String): CaptionIntent()
     data class ImageCaptioned(val caption: String): CaptionIntent()
     data class ErrorCaptioned(val error: String): CaptionIntent()
+    object Retry: CaptionIntent()
     object NewImage: CaptionIntent()
 }
 

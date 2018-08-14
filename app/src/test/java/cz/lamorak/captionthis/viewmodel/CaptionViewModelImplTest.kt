@@ -73,7 +73,7 @@ class CaptionViewModelImplTest: ViewModelTest<CaptionIntent, CaptionState, Capti
 
         val initialState = CaptionError("imageUri", "error")
         initViewModel(initialState)
-        val (states, actions) = testIntent(Caption(initialState.imageUri))
+        val (states, actions) = testIntent(Retry)
         states.assertValues(
                 initialState,
                 Processing(initialState.imageUri),
