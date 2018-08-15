@@ -12,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", '"https://westcentralus.api.cognitive.microsoft.com"'
+        // TODO: Yes, the key shouldn't be stored publicly
+        buildConfigField "String", "API_KEY", '"cf499ddab1ed48e987a9205978d6a149"'
     }
     buildTypes {
         release {
