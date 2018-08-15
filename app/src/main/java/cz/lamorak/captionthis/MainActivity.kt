@@ -7,7 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
+import android.view.Menu
 import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.itemClicks
 import cz.lamorak.architecture.ViewActivity
 import cz.lamorak.architecture.ViewModel
 import cz.lamorak.architecture.ViewModelFactory
@@ -37,6 +39,7 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setActionBar(toolbar)
         AndroidInjection.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(CaptionViewModel::class.java)
     }
@@ -51,7 +54,10 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
     override fun subscribeIntents() = CompositeDisposable(
             select_image_gallery.clicks().asIntent { GallerySelect },
             select_image_camera.clicks().asIntent { CameraSelect },
-            error_retry.clicks().asIntent { Retry }
+            error_retry.clicks().asIntent { Retry },
+            toolbar.itemClicks()
+                    .filter({ it.itemId == R.id.action_new })
+                    .asIntent { NewImage }
     )
 
     override fun display(state: CaptionState) {
@@ -64,6 +70,7 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
         error_label.setVisible(state is CaptionError)
         error_retry.setVisible(state is CaptionError)
         if (state is CaptionError) error_label.text = state.error
+        toolbar.menu.setGroupVisible(R.id.group_captioned, state is CaptionedImage || state is CaptionError)
     }
 
     override fun handle(action: CaptionAction) = when(action) {
@@ -106,6 +113,11 @@ class MainActivity : ViewActivity<CaptionIntent, CaptionState, CaptionAction>() 
         if (imageUri != null) {
             resultIntent = Caption(imageUri.toString())
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
 
     companion object {

@@ -3,6 +3,7 @@ package cz.lamorak.captionthis
 import android.content.Intent
 import android.provider.MediaStore
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.assertion.ViewAssertions.doesNotExist
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.*
@@ -62,6 +63,7 @@ class MainActivityTest {
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.action_new)).check(doesNotExist())
     }
 
     @Test
@@ -76,6 +78,7 @@ class MainActivityTest {
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.action_new)).check(doesNotExist())
     }
 
     @Test
@@ -91,6 +94,7 @@ class MainActivityTest {
         onView(withId(R.id.caption)).check(matches(allOf(isDisplayed(), withText(caption))))
         onView(withId(R.id.error_label)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_retry)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.action_new)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -106,5 +110,6 @@ class MainActivityTest {
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
         onView(withId(R.id.error_label)).check(matches(allOf(isDisplayed(), withText(error))))
         onView(withId(R.id.error_retry)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_new)).check(matches(isDisplayed()))
     }
 }
