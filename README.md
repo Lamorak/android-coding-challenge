@@ -19,3 +19,6 @@ After sending the challenge we'll wait for 3 days to hear back from you. Feel fr
 ## Process
 When you're ready, please fork this repository and start writing code in your fork. You'll get extra points for committing often in small chunks, so we'll see the process of how you created the application.
 
+# Solution
+The app is based on MVI architecture using RxJava. It gives the user the possibility to select image from gallery or take one with camera and the provides image caption from Microsoft Computer Vision API. It can be run from command line using gradle tasks or by Android Studio.
+
